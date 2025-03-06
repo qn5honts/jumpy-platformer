@@ -32,12 +32,12 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Bumper, function (sprite, otherS
     }
     pause(invincibilityPeriod)
 })
-function initializeAnimations () {
+function initializeAnimations() {
     initializeHeroAnimations()
     initializeCoinAnimation()
     initializeFlierAnimations()
 }
-function giveIntroduction () {
+function giveIntroduction() {
     game.setDialogFrame(img`
         . 2 2 2 2 2 2 2 2 2 2 2 2 2 . . 
         2 2 1 1 1 1 1 1 1 1 1 1 1 2 2 . 
@@ -81,7 +81,7 @@ function giveIntroduction () {
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     attemptJump()
 })
-function initializeCoinAnimation () {
+function initializeCoinAnimation() {
     coinAnimation = animation.createAnimation(ActionKind.Idle, 200)
     coinAnimation.addAnimationFrame(img`
         . . . . . . . . . . . . . . . . 
@@ -216,7 +216,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Coin, function (sprite, otherSpr
     info.changeScoreBy(3)
     music.baDing.play()
 })
-function attemptJump () {
+function attemptJump() {
     // else if: either fell off a ledge, or double jumping
     if (hero.isHittingTile(CollisionDirection.Bottom)) {
         hero.vy = -4 * pixelsToMeters
@@ -232,7 +232,7 @@ function attemptJump () {
         canDoubleJump = false
     }
 }
-function animateIdle () {
+function animateIdle() {
     mainIdleLeft = animation.createAnimation(ActionKind.IdleLeft, 100)
     animation.attachAnimation(hero, mainIdleLeft)
     mainIdleLeft.addAnimationFrame(img`
@@ -274,7 +274,7 @@ function animateIdle () {
         . . . . f f f . . f f f . . . . 
         `)
 }
-function setLevelTileMap (level: number) {
+function setLevelTileMap(level: number) {
     clearGame()
     if (level == 0) {
         tiles.setTilemap(tilemap`level`)
@@ -295,7 +295,7 @@ function setLevelTileMap (level: number) {
     }
     initializeLevel(level)
 }
-function initializeFlierAnimations () {
+function initializeFlierAnimations() {
     flierFlying = animation.createAnimation(ActionKind.Flying, 100)
     flierFlying.addAnimationFrame(img`
         . . . . . . . . . . . . . . . . 
@@ -374,7 +374,7 @@ function initializeFlierAnimations () {
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     attemptJump()
 })
-function animateRun () {
+function animateRun() {
     mainRunLeft = animation.createAnimation(ActionKind.RunningLeft, 100)
     animation.attachAnimation(hero, mainRunLeft)
     mainRunLeft.addAnimationFrame(img`
@@ -524,7 +524,7 @@ function animateRun () {
         . . . . . . . f f f . f f f . . 
         `)
 }
-function animateJumps () {
+function animateJumps() {
     // Because there isn't currently an easy way to say "play this animation a single time
     // and stop at the end", this just adds a bunch of the same frame at the end to accomplish
     // the same behavior
@@ -645,7 +645,7 @@ function animateJumps () {
             `)
     }
 }
-function animateCrouch () {
+function animateCrouch() {
     mainCrouchLeft = animation.createAnimation(ActionKind.CrouchLeft, 100)
     animation.attachAnimation(hero, mainCrouchLeft)
     mainCrouchLeft.addAnimationFrame(img`
@@ -687,7 +687,7 @@ function animateCrouch () {
         . . . f f f f f . f f f f . . . 
         `)
 }
-function clearGame () {
+function clearGame() {
     for (let value of sprites.allOfKind(SpriteKind.Bumper)) {
         value.destroy()
     }
@@ -717,7 +717,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Flier, function (sprite, otherSp
     music.powerDown.play()
     pause(invincibilityPeriod * 1.5)
 })
-function createEnemies () {
+function createEnemies() {
     // enemy that moves back and forth
     for (let value5 of tiles.getTilesByType(assets.tile`tile4`)) {
         bumper = sprites.create(img`
@@ -778,18 +778,18 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         hero.vy += 80
     }
 })
-function showInstruction (text: string) {
+function showInstruction(text: string) {
     game.showLongText(text, DialogLayout.Bottom)
     music.baDing.play()
     info.changeScoreBy(1)
 }
-function initializeHeroAnimations () {
+function initializeHeroAnimations() {
     animateRun()
     animateIdle()
     animateCrouch()
     animateJumps()
 }
-function createPlayer (player2: Sprite) {
+function createPlayer(player2: Sprite) {
     player2.ay = gravity
     scene.cameraFollowSprite(player2)
     controller.moveSprite(player2, 100, 0)
@@ -797,7 +797,7 @@ function createPlayer (player2: Sprite) {
     info.setLife(3)
     info.setScore(0)
 }
-function initializeLevel (level: number) {
+function initializeLevel(level: number) {
     effects.clouds.startScreenEffect()
     playerStartLocation = tiles.getTilesByType(assets.tile`tile6`)[0]
     tiles.placeOnTile(hero, playerStartLocation)
@@ -805,10 +805,10 @@ function initializeLevel (level: number) {
     createEnemies()
     spawnGoals()
 }
-function hasNextLevel () {
+function hasNextLevel() {
     return currentLevel != levelCount
 }
-function spawnGoals () {
+function spawnGoals() {
     for (let value7 of tiles.getTilesByType(assets.tile`tile5`)) {
         coin = sprites.create(img`
             . . . . . . . . . . . . . . . . 
